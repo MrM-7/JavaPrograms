@@ -64,6 +64,44 @@ class Test{
 			else
 				System.out.println("Age: "+age);
 		}
+		
+			
+	void inputMismatchException()
+	{
+		Scanner s2 = new Scanner(System.in);
+		try{
+			int x = s2.nextInt();
+		}catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	void NullPointerException()
+	{
+		String s = null;
+		try {
+			System.out.println(s.length());
+		}catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			
+		}
+	}
+	
+	void IndexOutofbound()
+	{
+		//int a[] = new int[3];
+		int a[] = {1,2,4};
+		
+		try {
+			System.out.println(a[22]);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
 }
 
 public class P14_ExceptionHandling {
@@ -81,5 +119,14 @@ public class P14_ExceptionHandling {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+	}
+}
+
+class ManualException extends Exception
+{
+	public String getMessage()
+	{
+		String detailMessage = "Exception here!!!!";
+		return detailMessage;
 	}
 }
