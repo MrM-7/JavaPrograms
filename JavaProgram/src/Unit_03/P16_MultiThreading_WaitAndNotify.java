@@ -3,52 +3,52 @@ package Unit_03;
 public class P16_MultiThreading_WaitAndNotify {
 
 	public static void main(String[] args) {
+		SharedResources obj = new SharedResources();
 		
-		Bank b = new Bank();
-		
-		new Thread() {
-			public void run() {
-				b.withdraw(15000);
+		new Thread()
+		{
+			public void run()
+			{
+				obj.withdraw(150000);
 			}
 		}.start();
 		
-		new Thread() {
-			public void run() {
-				b.deposit(10000);
+		new Thread()
+		{
+			public void run()
+			{
+				obj.deposite(1);
 			}
 		}.start();
-		
 	}
 
 }
 
-
-class Bank {
+class SharedResources {
+	int amt = 100000;
 	
-	int amount = 10000;
-	
-	void withdraw(int amount) {
+	synchronized void withdraw(int amt){
+		System.out.println("Going to withdraw!!");
 		
-		if(this.amount < amount) {
-			System.out.println("Less balance; waiting for deposit!");
-			
+		if(this.amt<amt)
+		{
+			System.out.println("Less balance ; Waiting for Deposite!!!!!!!");
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
+			
 		}
-		
-		this.amount -= amount;
-		System.out.println("Withdraw completed...");
+		this.amt-=amt;
+		System.out.println("Withdraw completed!");
 	}
-	
-	void deposit(int amount) {
+	synchronized void deposite(int amt)
+	{
+		System.out.println("Going to deposite!!!");
+		this.amt+=amt;
 		
-		System.out.println("Going to deposit...");
+		System.out.println("Deposite completed...!");
+		notify();  //OR  //notifyAll();
 		
-		this.amount += amount;
-		System.out.println("Deposit completed...");
-		notify();		
 	}
 }
